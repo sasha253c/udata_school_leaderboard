@@ -4,7 +4,7 @@ from collections import namedtuple
 
 import requests
 import pandas as pd
-# from fake_useragent import UserAgent
+from fake_useragent import UserAgent
 from bs4 import BeautifulSoup
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
@@ -13,7 +13,7 @@ from config import TOKEN
 Participant = namedtuple('Participant', ['place', 'username', 'math', 'python', 'total'])
 
 URL = "https://quiz.udata.school/leaderboard/"
-# UA = UserAgent()
+UA = UserAgent()
 
 FIND_USERNAME = 'SashaKochyn'
 
@@ -23,9 +23,9 @@ dispatcher = updater.dispatcher
 
 
 def getMyPlace():
-    # r = requests.get(URL, headers={'User-Agent': UA.random})
-    r = requests.get(URL, headers={
-        'User-Agent': "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36'"})
+    r = requests.get(URL, headers={'User-Agent': UA.random})
+    # r = requests.get(URL, headers={
+    #     'User-Agent': "'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36'"})
     bs = BeautifulSoup(r.text, 'lxml')
     participants = [Participant(*line.text.strip().split('\n')) for line in bs.find_all('table')[1].find_all('tr')]
     df = pd.DataFrame(participants)
