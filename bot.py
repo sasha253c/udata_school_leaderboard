@@ -1,3 +1,5 @@
+# coding: utf-8
+
 from collections import namedtuple
 
 import requests
@@ -16,7 +18,7 @@ URL = "https://quiz.udata.school/leaderboard/"
 FIND_USERNAME = 'SashaKochyn'
 
 
-updater = Updater(token=TOKEN) # Токен API к Telegram
+updater = Updater(token=TOKEN)
 dispatcher = updater.dispatcher
 
 
@@ -37,7 +39,7 @@ def getMyPlace():
     return f'You are {my.place} from {length}'
 
 def startCommand(bot, update):
-    bot.send_message(chat_id=update.message.chat_id, text='Привет, давай пообщаемся?')
+    bot.send_message(chat_id=update.message.chat_id, text='Hello')
 
 def myPlaceCommand(bot, update):
     print('get command: get my place')
@@ -46,7 +48,7 @@ def myPlaceCommand(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text=message)
 
 def textMessage(bot, update):
-    response = 'Получил Ваше сообщение: ' + update.message.text
+    response = 'Your message: ' + update.message.text
     bot.send_message(chat_id=update.message.chat_id, text=response)
 
 
@@ -54,13 +56,10 @@ if __name__ == '__main__':
     start_command_handler = CommandHandler('start', startCommand)
     myplace_command_handler = CommandHandler('myplace', myPlaceCommand)
     text_message_handler = MessageHandler(Filters.text, textMessage)
-    # Добавляем хендлеры в диспетчер
     dispatcher.add_handler(start_command_handler)
     dispatcher.add_handler(myplace_command_handler)
     dispatcher.add_handler(text_message_handler)
-    # Начинаем поиск обновлений
     updater.start_polling(clean=True)
-    # Останавливаем бота, если были нажаты Ctrl + C
     # updater.idle()
 
     # print(getMyPlace())
