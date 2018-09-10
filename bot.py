@@ -61,6 +61,6 @@ if __name__ == '__main__':
     # Начинаем поиск обновлений
     updater.start_polling(clean=True)
     # Останавливаем бота, если были нажаты Ctrl + C
-    updater.idle()
+    # updater.idle()
 
     # print(getMyPlace())
